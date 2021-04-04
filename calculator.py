@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import math
 
 # tamanho da tela
 WIN_W = 30
@@ -32,7 +33,8 @@ layout = [[sg.Menu(menu_layout)],
              sg.Button('8', font=('Consolas,', 20), key='8'),
              sg.Button('9', font=('Consolas,', 20), key='9'),
              sg.Button('0', font=('Consolas,', 20), key='0'),
-             sg.Button('=', font=('Consolas,', 20), key='=')]]
+             sg.Button('=', font=('Consolas,', 20), key='='),
+             sg.Button('√', font=('Consolas',20), key='raiz')]]
 
 #
 
@@ -50,7 +52,7 @@ class TelaPython:
                 Button.expand(expand_x=True, expand_y=True)
 
 
-    def Result(self):
+    def resulter(self):
 
         if self.oper == '+':
             return float(self.result) + float(self.values['Box'])
@@ -60,6 +62,8 @@ class TelaPython:
             return float(self.result) / float(self.values['Box'])
         if self.oper == '*':
             return float(self.result) * float(self.values['Box'])
+        if self.oper == 'raiz':
+            return float(math.sqrt(self.result))
 
 
 
@@ -75,67 +79,69 @@ class TelaPython:
 
             if event in('1'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='1')
+                    self.window['Box'].update(value= '1')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'1')
+                    self.window['Box'].update(value=self.values['Box']+'1')
 
             if event in ('2'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='2')
+                    self.window['Box'].update(value='2')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'2')
+                    self.window['Box'].update(value=self.values['Box']+'2')
 
             if event in('3'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='3')
+                    self.window['Box'].update(value='3')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'3')
+                    self.window['Box'].update(value=self.values['Box']+'3')
 
             if event in('4'):
                 if self.values['Box'] == 0:
                     self.window['Box'].Update(value='4')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'4')
+                    self.window['Box'].update(value=self.values['Box']+'4')
 
             if event in('5'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='5')
+                    self.window['Box'].update(value='5')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'5')
+                    self.window['Box'].update(value=self.values['Box']+'5')
 
             if event in('6'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='6')
+                    self.window['Box'].update(value='6')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'6')
+                    self.window['Box'].update(value=self.values['Box']+'6')
 
             if event in('7'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].UptInade(value='7')
+                    self.window['Box'].update(value='7')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'7')
+                    self.window['Box'].update(value=self.values['Box']+'7')
 
             if event in('8'):
+
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='8')
+                    self.window['Box'].update(value='')
+                    self.window['Box'].update(value='8')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'8')
+                    self.window['Box'].update(value=self.values['Box']+'8')
 
             if event in('9'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='9')
+                    self.window['Box'].update(value='9')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'9')
+                    self.window['Box'].update(value=self.values['Box']+'9')
 
             if event in('0'):
                 if self.values['Box'] == 0:
-                    self.window['Box'].Uptade(value='0')
+                    self.window['Box'].update(value='0')
                 else:
-                    self.window['Box'].Uptade(value=self.values['Box']+'0')
+                    self.window['Box'].update(value=self.values['Box']+'0')
             #######
 
             if event in ['Clear']:
-                self.result= 0
+                self.result = 0
                 self.window['Box'].update(value=self.result)
             if event in ('Delete'):
                 self.window['Box'].update(value=self.values['Box'][:-1])
@@ -147,31 +153,39 @@ class TelaPython:
                 else:
                     self.oper = '+'
                     self.result = self.values['Box']
-                self.window['Box'].uptade(value='')
+                self.window['Box'].update(value='')
 
             if event in ('-'):
                 if self.oper != '':
                     self.result = self.resulter()
                 else:
-                    self.oper = '+'
+                    self.oper = '-'
                     self.result = self.values['Box']
-                self.window['Box'].uptade(value='')
+                self.window['Box'].update(value='')
 
             if event in ('*'):
                 if self.oper != '':
                     self.result = self.resulter()
                 else:
-                    self.oper = '+'
+                    self.oper = '*'
                     self.result = self.values['Box']
-                self.window['Box'].uptade(value='')
+                self.window['Box'].update(value='')
 
             if event in ('/'):
                 if self.oper != '':
                     self.result = self.resulter()
                 else:
-                    self.oper = '+'
+                    self.oper = '/'
                     self.result = self.values['Box']
-                self.window['Box'].uptade(value='')
+                self.window['Box'].update(value='')
+
+            if event in ('raiz'):
+                if self.oper != '':
+                    self.result = self.resulter()
+                else:
+                    self.oper = 'raiz'
+                    self.result = self.values['Box']
+                 self.window['Box'].update(value=self.result)
 
             if event in ('='):
                 self.result = self.resulter()
