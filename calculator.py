@@ -27,7 +27,8 @@ layout = [[sg.Menu(menu_layout)],
              sg.Button('5', font=('Consolas,', 20), key='5'),
              sg.Button('6', font=('Consolas,', 20), key='6'),
              sg.Button('*', font=('Consolas,', 20), key='*'),
-             sg.Button('/', font=('Consolas,', 20), key='/')],
+             sg.Button('/', font=('Consolas,', 20), key='/'),
+             sg.Button('.', font=('Consolas,', 20), key='.' )],
          [ #linha 4
              sg.Button('7', font=('Consolas,', 20), key='7'),
              sg.Button('8', font=('Consolas,', 20), key='8'),
@@ -63,13 +64,16 @@ class TelaPython:
         if self.oper == '*':
             return float(self.result) * float(self.values['Box'])
         if self.oper == 'raiz':
-            return float(math.sqrt(self.result))
+            num = float(self.values ['Box'])
+            return num**0.5
 
 
 
     def start(self):
 
         while True:
+         #   print(self.values['Box'])
+
             event, self.values = self.window.read()
 
             if event in (None, 'Exit', sg.WIN_CLOSED): #condições para fechar o app
@@ -78,68 +82,68 @@ class TelaPython:
             #funções para cada botão
 
             if event in('1'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value= '1')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'1')
 
             if event in ('2'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='2')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'2')
 
             if event in('3'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='3')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'3')
 
             if event in('4'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].Update(value='4')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'4')
 
             if event in('5'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='5')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'5')
 
             if event in('6'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='6')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'6')
 
             if event in('7'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='7')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'7')
 
             if event in('8'):
 
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='')
                     self.window['Box'].update(value='8')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'8')
 
             if event in('9'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='9')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'9')
 
             if event in('0'):
-                if self.values['Box'] == 0:
+                if self.values['Box'] == '0':
                     self.window['Box'].update(value='0')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'0')
             #######
-
+            # Operadores
             if event in ['Clear']:
                 self.result = 0
                 self.window['Box'].update(value=self.result)
@@ -180,18 +184,27 @@ class TelaPython:
                 self.window['Box'].update(value='')
 
             if event in ('raiz'):
-                if self.oper != '':
-                    self.result = self.resulter()
-                else:
                     self.oper = 'raiz'
-                    self.result = self.values['Box']
-                 self.window['Box'].update(value=self.result)
+                    self.result = self.resulter()
+                    self.window['Box'].update(value=self.result)
+                    self.oper =''
 
             if event in ('='):
+               # if self.oper != '':
+
                 self.result = self.resulter()
                 self.window['Box'].update(value=self.result)
                 self.result=0
                 self.oper = ''
+
+            #Ponto
+
+            if event in ('.'):
+                    self.window['Box'].update(value=self.values['Box'] + '.')
+
+
+
+
 
 
 TelaPython().start()
