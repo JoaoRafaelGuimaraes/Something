@@ -1,2 +1,2 @@
-# Something
-Something is always good
+# Calculator
+Calculator made with Python
