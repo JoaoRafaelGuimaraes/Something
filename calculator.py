@@ -6,7 +6,7 @@ WIN_W = 30
 WIN_H = 50
 
 # Menu layout
-menu_layout = [['File', ['Save', 'Exit']],
+menu_layout = [['File', ['Historic', 'Exit']],
                ['Tools', ['Wainting']],
                ['Help', ['About']]]
 
@@ -46,6 +46,8 @@ class TelaPython:
 
         self.window = sg.Window('Calculadora', layout=layout,margins=(0 , 0), resizable=True, return_keyboard_events=False)
         self.result = 0
+        self.n = 0
+        self.resultado =[1,2,3,4,5,6,7,8,9,10]
         self.oper = ''
         self.window.read(timeout=1)
         for i in range(1, 5):
@@ -78,6 +80,12 @@ class TelaPython:
 
             if event in (None, 'Exit', sg.WIN_CLOSED): #condições para fechar o app
                 break
+            if event in('About'):
+                sg.popup('Feito por João Rafael de Freitas Guimarães\n@joaorrafa')
+            if event in ('Historic'):
+               # sg.popup(f'{self.resultado}\n' * self.n)
+               for i in range(self.n):
+                   sg.Print(self.resultado[i])
 
             #funções para cada botão
 
@@ -191,9 +199,10 @@ class TelaPython:
 
             if event in ('='):
                # if self.oper != '':
-
+                self.n += 1
                 self.result = self.resulter()
                 self.window['Box'].update(value=self.result)
+                self.resultado[self.n] = self.result
                 self.result=0
                 self.oper = ''
 
