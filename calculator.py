@@ -6,8 +6,8 @@ WIN_W = 30
 WIN_H = 50
 
 # Menu layout
-menu_layout = [['File', ['Historic', 'Exit']],
-               ['Tools', ['Wainting']],
+menu_layout = [['File',['Exit']],
+               ['Tools', ['Historic']],
                ['Help', ['About']]]
 
 # layout
@@ -21,7 +21,8 @@ layout = [[sg.Menu(menu_layout)],
              sg.Button('2', font=('Consolas,', 20), key='2'),
              sg.Button('3', font=('Consolas,', 20), key='3'),
              sg.Button('+', font=('Consolas,', 20), key='+'),
-             sg.Button('-', font=('Consolas,', 20), key='-')],
+             sg.Button('-', font=('Consolas,', 20), key='-'),
+             sg.Button('^', font=('Consolas,', 20), key='p')],
          [ #linha 3
              sg.Button('4', font=('Consolas,', 20), key='4'),
              sg.Button('5', font=('Consolas,', 20), key='5'),
@@ -68,6 +69,8 @@ class TelaPython:
         if self.oper == 'raiz':
             num = float(self.values ['Box'])
             return num**0.5
+        if self.oper == 'pow':
+            return float(self.result)**float(self.values['Box'])
 
 
 
@@ -200,13 +203,22 @@ class TelaPython:
                     self.oper =''
 
             if event in ('='):
-               # if self.oper != '':
                 self.n += 1
                 self.result = self.resulter()
                 self.resultado.append(self.result)
                 self.window['Box'].update(value=self.result)
                 self.result=0
                 self.oper = ''
+
+            if event in ('pow'):
+                if self.oper != '':
+                    self.result = self.resulter()
+                else:
+                    self.oper = 'pow'
+                    self.result = self.values['Box']
+                self.window['Box'].update(value='')
+
+
 
             #Ponto
 
