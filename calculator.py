@@ -1,3 +1,7 @@
+# a fazer:
+# Escrever operações na tela
+
+
 import PySimpleGUI as sg
 import math
 
@@ -49,6 +53,7 @@ class TelaPython:
         self.result = 0
         self.n = 0
         self.resultado = list()
+        self.momento = 0
         self.oper = ''
         self.window.read(timeout=1)
         for i in range(1, 5):
@@ -58,28 +63,36 @@ class TelaPython:
 
     def resulter(self):
 
+
+        if self.values['Box'] == '':
+            self.values['Box'] = int('0')
+
         if self.oper == '+':
             return float(self.result) + float(self.values['Box'])
-        if self.oper == '-':
+        elif self.oper == '-':
             return float(self.result) - float(self.values['Box'])
-        if self.oper == '/':
+        elif self.oper == '/':
             return float(self.result) / float(self.values['Box'])
-        if self.oper == '*':
+        elif self.oper == '*':
             return float(self.result) * float(self.values['Box'])
-        if self.oper == 'raiz':
+        elif self.oper == 'raiz':
             num = float(self.values ['Box'])
-            return num**0.5
-        if self.oper == 'pow':
+            return float(self.result)**(1/num)
+        elif self.oper == 'pow':
             return float(self.result)**float(self.values['Box'])
+
 
 
 
     def start(self):
 
         while True:
+
          #   print(self.values['Box'])
 
             event, self.values = self.window.read()
+
+
 
             if event in (None, 'Exit', sg.WIN_CLOSED): #condições para fechar o app
                 break
@@ -103,6 +116,7 @@ class TelaPython:
                     self.window['Box'].update(value='2')
                 else:
                     self.window['Box'].update(value=self.values['Box']+'2')
+
 
             if event in('3'):
                 if self.values['Box'] == '0':
@@ -163,16 +177,19 @@ class TelaPython:
 
 
             if event in ('+'):
+
                 if self.oper != '':
                     self.result = self.resulter()
+                    self.oper ='+'
                 else:
                     self.oper = '+'
                     self.result = self.values['Box']
-                self.window['Box'].update(value='')
 
+                self.window['Box'].update(value='')
             if event in ('-'):
                 if self.oper != '':
                     self.result = self.resulter()
+                    self.oper = '-'
                 else:
                     self.oper = '-'
                     self.result = self.values['Box']
@@ -181,26 +198,38 @@ class TelaPython:
             if event in ('*'):
                 if self.oper != '':
                     self.result = self.resulter()
+                    self.oper = '*'
                 else:
                     self.oper = '*'
                     self.result = self.values['Box']
+
                 self.window['Box'].update(value='')
 
             if event in ('/'):
                 if self.oper != '':
                     self.result = self.resulter()
+                    self.oper = '/'
                 else:
                     self.oper = '/'
                     self.result = self.values['Box']
                 self.window['Box'].update(value='')
 
             if event in ('raiz'):
-                    self.n += 1
-                    self.oper = 'raiz'
+                if self.oper != '':
                     self.result = self.resulter()
-                    self.resultado.append(self.result)
-                    self.window['Box'].update(value=self.result)
-                    self.oper =''
+                    self.oper = 'raiz'
+                else:
+                    self.oper = 'raiz'
+                    self.result = self.values['Box']
+                self.window['Box'].update(value='')
+
+
+                    # self.n += 1
+                    # self.oper = 'raiz'
+                    # self.result = self.resulter()
+                    # self.resultado.append(self.result)
+                    # self.window['Box'].update(value=self.result)
+                    # self.oper =''
 
             if event in ('='):
                 self.n += 1
@@ -213,6 +242,7 @@ class TelaPython:
             if event in ('pow'):
                 if self.oper != '':
                     self.result = self.resulter()
+                    self.oper = 'pow'
                 else:
                     self.oper = 'pow'
                     self.result = self.values['Box']
