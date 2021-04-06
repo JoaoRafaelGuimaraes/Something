@@ -1,2 +1,2 @@
 # Calculator
-Something is always good
+Calculator made with Python
