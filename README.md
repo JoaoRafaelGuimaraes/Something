@@ -1,2 +1,2 @@
-# Something
+# Calculator
 Something is always good
