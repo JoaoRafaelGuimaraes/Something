@@ -47,7 +47,7 @@ class TelaPython:
         self.window = sg.Window('Calculadora', layout=layout,margins=(0 , 0), resizable=True, return_keyboard_events=False)
         self.result = 0
         self.n = 0
-        self.resultado =[1,2,3,4,5,6,7,8,9,10]
+        self.resultado = list()
         self.oper = ''
         self.window.read(timeout=1)
         for i in range(1, 5):
@@ -84,8 +84,8 @@ class TelaPython:
                 sg.popup('Feito por João Rafael de Freitas Guimarães\n@joaorrafa')
             if event in ('Historic'):
                # sg.popup(f'{self.resultado}\n' * self.n)
-               for i in range(self.n):
-                   sg.Print(self.resultado[i])
+               for i in range(0,self.n):
+                   sg.easy_print(self.resultado[i])
 
             #funções para cada botão
 
@@ -192,8 +192,10 @@ class TelaPython:
                 self.window['Box'].update(value='')
 
             if event in ('raiz'):
+                    self.n += 1
                     self.oper = 'raiz'
                     self.result = self.resulter()
+                    self.resultado.append(self.result)
                     self.window['Box'].update(value=self.result)
                     self.oper =''
 
@@ -201,8 +203,8 @@ class TelaPython:
                # if self.oper != '':
                 self.n += 1
                 self.result = self.resulter()
+                self.resultado.append(self.result)
                 self.window['Box'].update(value=self.result)
-                self.resultado[self.n] = self.result
                 self.result=0
                 self.oper = ''
 
